@@ -28,7 +28,7 @@ public class RenderSystem extends BaseEntitySystem {
 
     @Override
     protected void processSystem() {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 1, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -41,7 +41,7 @@ public class RenderSystem extends BaseEntitySystem {
         }
         shapeRenderer.end();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(0, 1, 0, 1);
+        shapeRenderer.setColor(0, 1, 1, 1);
         shapeRenderer.circle((float) (Gdx.graphics.getWidth()/2), (float) (Gdx.graphics.getHeight()/2), 3);
         shapeRenderer.end();
 
@@ -53,6 +53,8 @@ public class RenderSystem extends BaseEntitySystem {
             Texture texture = mTextureComponent.get(id).texture;
             int positionX = mPositionComponent.get(id).x * cellSize + Gdx.graphics.getWidth() / 2;
             int positionY = mPositionComponent.get(id).y * cellSize + Gdx.graphics.getHeight() / 2;
+            positionX += cellSize / 2 - texture.getWidth() / 2;
+            positionY += cellSize / 2 - texture.getHeight() / 2;
             batch.draw(texture, positionX, positionY);
         }
         batch.end();
