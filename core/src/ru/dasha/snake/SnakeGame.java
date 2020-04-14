@@ -29,6 +29,7 @@ public class SnakeGame extends ApplicationAdapter {
                 .with(new TurnSystem())
 				.with(new MovementSystem())
                 .with(new CollisionSystem())
+                .with(new AppleEatSystem())
                 .with(new RenderSystem(batch, shapeRenderer))
 				.build();
 
@@ -46,6 +47,7 @@ public class SnakeGame extends ApplicationAdapter {
         ColliderComponent colliderComponent = world.edit(apple).create(ColliderComponent.class);
         colliderComponent.sizeX = 1;
         colliderComponent.sizeY = 1;
+        world.edit(apple).create(AppleComponent.class);
         world.edit(apple).create(TextureComponent.class).texture = appleTexture;
     }
 
