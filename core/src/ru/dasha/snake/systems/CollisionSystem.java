@@ -34,7 +34,7 @@ public class CollisionSystem extends BaseEntitySystem {
                     CollisionComponent collision = world.edit(collisionEntity).create(CollisionComponent.class);
                     collision.entity1 = entity1;
                     collision.entity2 = entity2;
-                    System.out.println("CollisionDetection");
+                    System.out.println("CollisionDetection" + position1.x + " " + position1.y +" "+ position2.x + " " + position2.y);
                 }
             }
         }

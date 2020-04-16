@@ -1,13 +1,12 @@
 package ru.dasha.snake.systems;
 
-        import com.artemis.BaseEntitySystem;
-        import com.artemis.ComponentMapper;
-        import com.artemis.annotations.All;
-        import com.artemis.systems.IteratingSystem;
-        import ru.dasha.snake.components.AppleComponent;
-        import ru.dasha.snake.components.AppleEatComponent;
-        import ru.dasha.snake.components.CollisionComponent;
-        import ru.dasha.snake.components.SnakeComponent;
+import com.artemis.ComponentMapper;
+import com.artemis.annotations.All;
+import com.artemis.systems.IteratingSystem;
+import ru.dasha.snake.components.AppleComponent;
+import ru.dasha.snake.components.AppleEatComponent;
+import ru.dasha.snake.components.CollisionComponent;
+import ru.dasha.snake.components.SnakeComponent;
 
 @All({CollisionComponent.class})
 public class AppleEatSystem extends IteratingSystem {
@@ -29,7 +28,6 @@ public class AppleEatSystem extends IteratingSystem {
     }
 
     private void eatApple(int apple, int snake) {
-        System.out.println("Eat");
         int appleEat = world.create();
         AppleEatComponent appleEatComponent = world.edit(appleEat).create(AppleEatComponent.class);
         appleEatComponent.appleEntity = apple;

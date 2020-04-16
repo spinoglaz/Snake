@@ -30,6 +30,9 @@ public class SnakeGame extends ApplicationAdapter {
 				.with(new MovementSystem())
                 .with(new CollisionSystem())
                 .with(new AppleEatSystem())
+                .with(new AppleDestroySystem())
+                .with(new AppleCreatingSystem())
+                .with(new CleanUpSystem())
                 .with(new RenderSystem(batch, shapeRenderer))
 				.build();
 
