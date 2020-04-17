@@ -3,12 +3,11 @@ package ru.dasha.snake.systems;
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
-import com.artemis.systems.IteratingSystem;
 import com.artemis.utils.IntBag;
-import com.badlogic.gdx.math.Rectangle;
 import ru.dasha.snake.components.ColliderComponent;
 import ru.dasha.snake.components.CollisionComponent;
 import ru.dasha.snake.components.PositionComponent;
+
 @All({PositionComponent.class, ColliderComponent.class})
 public class CollisionSystem extends BaseEntitySystem {
     private ComponentMapper<PositionComponent> mPosition;

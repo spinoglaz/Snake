@@ -31,6 +31,7 @@ public class RenderSystem extends BaseEntitySystem {
         Gdx.gl.glClearColor(0, 1, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        Gdx.gl.glLineWidth(2);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(0,0,1,1);
         for (int x = 0; x < Gdx.graphics.getWidth(); x+=cellSize) {

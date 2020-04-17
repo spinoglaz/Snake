@@ -29,6 +29,7 @@ public class SnakeGame extends ApplicationAdapter {
                 .with(new TurnSystem())
 				.with(new MovementSystem())
                 .with(new CollisionSystem())
+                .with(new HitWallSystem())
                 .with(new AppleEatSystem())
                 .with(new AppleDestroySystem())
                 .with(new AppleCreatingSystem())
@@ -38,6 +39,10 @@ public class SnakeGame extends ApplicationAdapter {
 
 		world = new World(setup);
 
+		createHorizontalWall(-10, -10, 10);
+		createHorizontalWall(-10, 10, 10);
+		createVerticalWall(-11, -10, 10);
+		createVerticalWall(11, -10, 10);
         createApple(3, 6);
         createSnake(0, 0);
     }
@@ -69,6 +74,35 @@ public class SnakeGame extends ApplicationAdapter {
         colliderComponent.sizeY = 1;
         world.edit(snake).create(TextureComponent.class).texture = pointTexture;
     }
+
+    private void createHorizontalWall(int x, int y, int size) {
+        for (int i = x; i <= size ; i++) {
+            int wall = world.create();
+            world.edit(wall).create(WallComponent.class);
+            PositionComponent positionComponent = world.edit(wall).create(PositionComponent.class);
+            positionComponent.x = i;
+            positionComponent.y = y;
+            world.edit(wall).create(TextureComponent.class).texture = pointTexture;
+            ColliderComponent colliderComponent = world.edit(wall).create(ColliderComponent.class);
+            colliderComponent.sizeX = 1;
+            colliderComponent.sizeY = 1;
+        }
+    }
+
+    private void createVerticalWall(int x, int y, int size) {
+        for (int i = y; i <= size ; i++) {
+            int wall = world.create();
+            world.edit(wall).create(WallComponent.class);
+            PositionComponent positionComponent = world.edit(wall).create(PositionComponent.class);
+            positionComponent.x = x;
+            positionComponent.y = i;
+            ColliderComponent colliderComponent = world.edit(wall).create(ColliderComponent.class);
+            colliderComponent.sizeX = 1;
+            colliderComponent.sizeY = 1;
+            world.edit(wall).create(TextureComponent.class).texture = pointTexture;
+        }
+    }
+
 
     @Override
 	public void render () {
