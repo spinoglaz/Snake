@@ -3,7 +3,7 @@ package ru.dasha.snake.systems;
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.systems.IteratingSystem;
-import ru.dasha.snake.components.Direction;
+import ru.dasha.snake.components.MovedComponent;
 import ru.dasha.snake.components.MovementComponent;
 import ru.dasha.snake.components.PositionComponent;
 
@@ -18,6 +18,9 @@ public class MovementSystem extends IteratingSystem {
         MovementComponent movement = mMovement.get(entityId);
         movement.progress += movement.speed * world.delta;
         if (movement.progress >= 1) {
+            MovedComponent movedComponent = world.edit(entityId).create(MovedComponent.class);
+            movedComponent.x = position.x;
+            movedComponent.y = position.y;
             switch (movement.direction) {
                 case UP:
                     position.y += 1;

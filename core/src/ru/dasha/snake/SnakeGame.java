@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import ru.dasha.snake.components.*;
 import ru.dasha.snake.systems.*;
 
+import java.util.LinkedList;
+
 public class SnakeGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	ShapeRenderer shapeRenderer;
@@ -28,13 +30,16 @@ public class SnakeGame extends ApplicationAdapter {
                 .with(new InputSystem())
                 .with(new TurnSystem())
 				.with(new MovementSystem())
+                .with(new TailSystem())
                 .with(new CollisionSystem())
                 .with(new HitWallSystem())
                 .with(new AppleEatSystem())
                 .with(new AppleDestroySystem())
                 .with(new AppleCreatingSystem())
-                .with(new CleanUpSystem())
                 .with(new RenderSystem(batch, shapeRenderer))
+                .with(new RemoveTailSystem())
+                .with(new CleanUpSystem())
+                .with(new RemoveMovedSystem())
 				.build();
 
 		world = new World(setup);
@@ -63,6 +68,9 @@ public class SnakeGame extends ApplicationAdapter {
         int snake = world.create();
         world.edit(snake).create(SnakeComponent.class);
         world.edit(snake).create(TurnComponent.class);
+        TailComponent tailComponent = world.edit(snake).create(TailComponent.class);
+        tailComponent.growth = 3;
+        tailComponent.tail = new LinkedList<>();
         PositionComponent positionComponent = world.edit(snake).create(PositionComponent.class);
         positionComponent.x = x;
         positionComponent.y = y;

@@ -3,7 +3,6 @@ package ru.dasha.snake.systems;
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.systems.IteratingSystem;
-import ru.dasha.snake.components.ColliderComponent;
 import ru.dasha.snake.components.CollisionComponent;
 import ru.dasha.snake.components.SnakeComponent;
 import ru.dasha.snake.components.WallComponent;
