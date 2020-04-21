@@ -41,10 +41,6 @@ public class RenderSystem extends BaseEntitySystem {
             shapeRenderer.line(0, y, Gdx.graphics.getWidth(), y);
         }
         shapeRenderer.end();
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(0, 1, 1, 1);
-        shapeRenderer.circle((float) (Gdx.graphics.getWidth()/2), (float) (Gdx.graphics.getHeight()/2), 3);
-        shapeRenderer.end();
 
         batch.begin();
         IntBag actives = subscription.getEntities();
