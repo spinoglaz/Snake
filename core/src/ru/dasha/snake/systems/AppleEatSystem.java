@@ -19,11 +19,9 @@ public class AppleEatSystem extends IteratingSystem {
         CollisionComponent collision = mCollision.get(entityId);
         if (mApple.has(collision.entity1) && mSnake.has(collision.entity2)) {
             eatApple(collision.entity1, collision.entity2);
-            world.delete(entityId);
         }
         else if (mApple.has(collision.entity2) && mSnake.has(collision.entity1)) {
             eatApple(collision.entity2, collision.entity1);
-            world.delete(entityId);
         }
     }
 

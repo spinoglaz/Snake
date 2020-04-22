@@ -1,6 +1,5 @@
 package ru.dasha.snake.systems;
 
-import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.systems.IteratingSystem;

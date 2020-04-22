@@ -1,7 +1,5 @@
 package ru.dasha.snake.systems;
 
-import com.artemis.BaseEntitySystem;
-import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,8 +8,6 @@ import ru.dasha.snake.components.*;
 @All(AppleEatComponent.class)
 public class AppleCreatingSystem extends IteratingSystem {
     private Texture texture = new Texture("apple.png");
-
-
 
     @Override
     protected void process(int entityId) {

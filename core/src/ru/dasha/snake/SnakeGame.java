@@ -14,22 +14,22 @@ import ru.dasha.snake.systems.*;
 import java.util.LinkedList;
 
 public class SnakeGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	ShapeRenderer shapeRenderer;
-	World world;
-	Texture appleTexture;
-	Texture pointTexture;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		shapeRenderer = new ShapeRenderer();
-		appleTexture = new Texture("apple.png");
-		pointTexture = new Texture("point.png");
-		WorldConfiguration setup = new WorldConfigurationBuilder()
+    SpriteBatch batch;
+    ShapeRenderer shapeRenderer;
+    World world;
+    Texture pointTexture;
+
+    @Override
+    public void create () {
+        batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
+        pointTexture = new Texture("point.png");
+        WorldConfiguration setup = new WorldConfigurationBuilder()
                 .with(new InputSystem())
+                .with(new RestartSystem())
+                .with(new NewGameSystem())
                 .with(new TurnSystem())
-				.with(new MovementSystem())
+                .with(new MovementSystem())
                 .with(new TailSystem())
                 .with(new CollisionSystem())
                 .with(new HitWallSystem())
@@ -41,47 +41,16 @@ public class SnakeGame extends ApplicationAdapter {
                 .with(new RemoveTailSystem())
                 .with(new CleanUpSystem())
                 .with(new RemoveMovedSystem())
-				.build();
+                .build();
 
-		world = new World(setup);
+        world = new World(setup);
 
-		createHorizontalWall(-10, -10, 10);
-		createHorizontalWall(-10, 10, 10);
-		createVerticalWall(-11, -10, 10);
-		createVerticalWall(11, -10, 10);
-        createApple(3, 6);
-        createSnake(0, 0);
-    }
-
-    private void createApple(int x, int y) {
-        int apple = world.create();
-        PositionComponent positionComponent = world.edit(apple).create(PositionComponent.class);
-        positionComponent.x = x;
-        positionComponent.y = y;
-        ColliderComponent colliderComponent = world.edit(apple).create(ColliderComponent.class);
-        colliderComponent.sizeX = 1;
-        colliderComponent.sizeY = 1;
-        world.edit(apple).create(AppleComponent.class);
-        world.edit(apple).create(TextureComponent.class).texture = appleTexture;
-    }
-
-    private void createSnake(int x, int y) {
-        int snake = world.create();
-        world.edit(snake).create(SnakeComponent.class);
-        world.edit(snake).create(TurnComponent.class);
-        TailComponent tailComponent = world.edit(snake).create(TailComponent.class);
-        tailComponent.growth = 3;
-        tailComponent.tail = new LinkedList<>();
-        PositionComponent positionComponent = world.edit(snake).create(PositionComponent.class);
-        positionComponent.x = x;
-        positionComponent.y = y;
-        MovementComponent movementComponent = world.edit(snake).create(MovementComponent.class);
-        movementComponent.speed = 4;
-        movementComponent.direction = Direction.UP;
-        ColliderComponent colliderComponent = world.edit(snake).create(ColliderComponent.class);
-        colliderComponent.sizeX = 1;
-        colliderComponent.sizeY = 1;
-        world.edit(snake).create(TextureComponent.class).texture = pointTexture;
+        createHorizontalWall(-10, -10, 10);
+        createHorizontalWall(-10, 10, 10);
+        createVerticalWall(-11, -10, 10);
+        createVerticalWall(11, -10, 10);
+        int newGame = world.create();
+        world.edit(newGame).create(NewGameComponent.class);
     }
 
     private void createHorizontalWall(int x, int y, int size) {
@@ -112,15 +81,14 @@ public class SnakeGame extends ApplicationAdapter {
         }
     }
 
+    @Override
+    public void render () {
+        world.setDelta(Gdx.graphics.getDeltaTime());
+        world.process();
+    }
 
     @Override
-	public void render () {
-	    world.setDelta(Gdx.graphics.getDeltaTime());
-		world.process();
-	}
-	
-	@Override
-	public void dispose () {
-		batch.dispose();
-	}
+    public void dispose () {
+        batch.dispose();
+    }
 }
